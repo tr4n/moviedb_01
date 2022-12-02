@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="nvb_color">#242A32</color>
+    <color name="edit_text_bgcolor">#3A3F47</color>
+    <color name="background_color">#1E1E1E</color>
 </resources>
