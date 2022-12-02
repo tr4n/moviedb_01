@@ -4,18 +4,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tr4n.moviedb.data.model.Movie
-import com.tr4n.moviedb.data.source.AuthenticationRepository
 import com.tr4n.moviedb.data.source.MoviesRepository
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class HomeViewModel : ViewModel(), KoinComponent {
+class TabMovieViewModel : ViewModel(), KoinComponent {
 
-    private val authenticationRepository : AuthenticationRepository by inject()
     private val moviesRepository : MoviesRepository by inject()
 
-    var listMoviesNowPlaying = MutableLiveData<List<Movie>?>()
+    var listMoviesNowPlaying = MutableLiveData<List<Movie>>()
     var exception = MutableLiveData<Exception>()
 
     fun getTabMovie(tab : String, language : String, page : Int) {
@@ -44,17 +42,8 @@ class HomeViewModel : ViewModel(), KoinComponent {
         viewModelScope.launch {
             val preTabMovies = moviesRepository.getTabMovie(tab, language, page-1).results ?: emptyList()
             val currentTabMovies = moviesRepository.getTabMovie(tab, language, page).results ?: emptyList()
-           listMoviesNowPlaying.value = preTabMovies.plus(currentTabMovies)
+            listMoviesNowPlaying.value = preTabMovies.plus(currentTabMovies)
         }
     }
 
-    fun getRequestToken() {
-        viewModelScope.launch {
-            try {
-                //println(authenticationRepository.getRequestToken())
-            } catch (err : Exception) {
-                println(err)
-            }
-        }
-    }
 }

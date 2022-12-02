@@ -1,37 +1,33 @@
 package com.tr4n.moviedb.ui.home
 
+import android.view.View
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tr4n.moviedb.R
 import com.tr4n.moviedb.base.BaseFragment
-import com.tr4n.moviedb.data.model.Movie
+import com.tr4n.moviedb.databinding.ActivityMainBinding
+import com.tr4n.moviedb.utils.Constant
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
-
     private val viewModel : HomeViewModel by viewModel()
-
     private val movieAdapter = MovieAdapter()
+    private var currentPage = 1
+    private var isLoading = false
 
     override fun initData() {
-        val movies = listOf( Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"),
-            Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"),
-            Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"),
-            Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"),
-            Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"),
-            Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"),
-            Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"),
-            Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"),
-            Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"),
-            Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"),
-            Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"),
-            Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"),
-            Movie(234, "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg"))
-        movieAdapter.submitList(movies)
+        viewModel.getRequestToken()
+        viewModel.getTabMovie(Constant.TAB_NOW_PLAYING, Constant.LANGUAGE, currentPage)
+        movieAdapter.submitList(viewModel.listMoviesNowPlaying.value)
     }
 
     override fun listenEvents() {
-        //TODO("Not yet implemented")
         val viewPagerAdapter =
             activity?.supportFragmentManager?.let { ViewPagerAdapter(it, lifecycle) }
         viewPage.adapter = viewPagerAdapter
@@ -51,10 +47,60 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 }
             }
         }.attach()
+
+
+        //endless scrolling
+        recyclerViewNewlyMovie.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val visibleItemCount = recyclerView.layoutManager?.childCount
+                val total = movieAdapter.itemCount
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
+                if (dx > 0) {
+                    if (visibleItemCount != null) {
+                        if (!isLoading) {
+                            if ((visibleItemCount + pastVisibleItem) >= total) {
+                                isLoading = true
+                                viewModel.getNextTabMovie(Constant.TAB_NOW_PLAYING, Constant.LANGUAGE, currentPage)
+                                currentPage++
+                            }
+                        }
+                    }
+                }
+                else if (currentPage > 1 && dx < 0) {
+                    if (!isLoading) {
+                        if (pastVisibleItem <= visibleItemCount!!) {
+                            isLoading = true
+                            viewModel.getPreTabMovie(Constant.TAB_NOW_PLAYING, Constant.LANGUAGE, currentPage)
+                            currentPage--
+                        }
+                    }
+                }
+            }
+        })
+
+        /// search
+        editText_search.setOnClickListener {
+            activity?.nav_view?.selectedItemId = R.id.navigation_search
+        }
     }
 
     override fun observeData() {
-        //TODO("Not yet implemented")
+        viewModel.listMoviesNowPlaying.observe(viewLifecycleOwner) {
+            isLoading = false
+            if (it?.isEmpty() == true) {
+                progressNewLyMovie.visibility = View.VISIBLE
+            } else {
+                progressNewLyMovie.visibility = View.INVISIBLE
+            }
+            movieAdapter.submitList(it)
+        }
+        viewModel.exception.observe(viewLifecycleOwner) {
+            context?.run {
+                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun setupViews() {

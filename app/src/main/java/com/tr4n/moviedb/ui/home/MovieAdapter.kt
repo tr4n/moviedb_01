@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tr4n.moviedb.R
 import com.tr4n.moviedb.data.model.Movie
+import com.tr4n.moviedb.utils.Constant
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(Movie.diffCallback) {
@@ -29,7 +30,7 @@ class MovieAdapter : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(Movie.diff
             itemData = movie
             itemView.run {
                 Glide.with(this)
-                    .load(itemData?.url)
+                    .load(Constant.BASE_URL_IMAGE + itemData?.url)
                     .into(imageViewMovie)
             }
         }
