@@ -2,15 +2,15 @@ package com.tr4n.moviedb.ui.home
 
 import com.tr4n.moviedb.R
 import com.tr4n.moviedb.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_tab_movie.*
 
 
-class HomeFragment : BaseFragment(R.layout.fragment_home) {
+class TabMovieFragment : BaseFragment(R.layout.fragment_tab_movie) {
 
-    private val movieAdapter = MovieAdapter()
+    private val tabMovieAdapter = MovieAdapter()
 
     override fun initData() {
-//do nothing
+        //do nothing
     }
 
     override fun listenEvents() {
@@ -22,6 +22,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     override fun setupViews() {
-        recyclerViewNewlyMovie.adapter = movieAdapter
+        recyclerViewTabMovie.adapter = tabMovieAdapter
     }
+
 }
