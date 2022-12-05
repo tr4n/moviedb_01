@@ -25,6 +25,11 @@ class MovieAdapter : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(Movie.diff
     class MovieViewHolder(
         itemView : View
     ) : RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.setOnClickListener {
+                println(adapterPosition)
+            }
+        }
         private var itemData : Movie ?= null
         fun binData(movie: Movie) {
             itemData = movie

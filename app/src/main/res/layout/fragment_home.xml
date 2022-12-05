@@ -18,7 +18,7 @@
             android:layout_marginTop="21dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/editText_search"
+            app:layout_constraintTop_toBottomOf="@+id/editSearch"
             tools:layout_editor_absoluteX="24dp" />
 
         <ProgressBar
@@ -29,7 +29,7 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText_search" />
+            app:layout_constraintTop_toBottomOf="@+id/editSearch" />
 
         <TextView
             android:id="@+id/what_do_you"
@@ -45,7 +45,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText_search"
+            android:id="@+id/editSearch"
             android:background="@drawable/edit_text_search_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
