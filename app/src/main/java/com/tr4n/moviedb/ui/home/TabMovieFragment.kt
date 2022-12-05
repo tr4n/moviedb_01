@@ -5,6 +5,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import com.tr4n.moviedb.R
 import com.tr4n.moviedb.base.BaseFragment
+import com.tr4n.moviedb.ui.detail.MovieDetailFragment
 import com.tr4n.moviedb.utils.Constant
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_tab_movie.*
@@ -51,6 +52,15 @@ class TabMovieFragment : BaseFragment(R.layout.fragment_tab_movie) {
                 currentPage++
             }
         })
+
+        tabMovieAdapter.onItemSelected = { movieId ->
+            //activity?.navView?.visibility = View.INVISIBLE
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.container, MovieDetailFragment.newInstance(movieId))
+                ?.addToBackStack(null)
+                ?.commit()
+        }
+
     }
 
     override fun observeData() {

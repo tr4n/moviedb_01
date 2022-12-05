@@ -13,9 +13,11 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(Movie.diffCallback) {
 
+    var onItemSelected : (Long) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(itemView)
+        return MovieViewHolder(itemView, onItemSelected)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -23,11 +25,14 @@ class MovieAdapter : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(Movie.diff
     }
 
     class MovieViewHolder(
-        itemView : View
+        itemView : View,
+        onItemSelected : (Long) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.setOnClickListener {
-                println(adapterPosition)
+                itemData?.let { movie ->
+                    onItemSelected(movie.id)
+                }
             }
         }
         private var itemData : Movie ?= null

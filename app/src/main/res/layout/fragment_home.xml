@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@color/background_color"
+        android:background="@color/color_dark_shade_of_gray"
         tools:context=".ui.home.HomeFragment">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -102,7 +102,7 @@
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPage"
-                android:background="@color/background_color"
+                android:background="@color/color_dark_shade_of_gray"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
