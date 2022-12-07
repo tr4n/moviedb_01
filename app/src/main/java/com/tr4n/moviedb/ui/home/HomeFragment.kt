@@ -7,7 +7,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.tr4n.moviedb.R
 import com.tr4n.moviedb.base.BaseFragment
 import com.tr4n.moviedb.ui.detail.MovieDetailFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -25,8 +24,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     override fun listenEvents() {
-        val viewPagerAdapter =
-            activity?.supportFragmentManager?.let { ViewPagerAdapter(it, lifecycle) }
+        val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
+
         viewPage.adapter = viewPagerAdapter
         TabLayoutMediator(tabLayout, viewPage) { tab, position ->
             when (position) {
@@ -70,13 +69,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             }
         })
 
-        /// search
-        editSearch.setOnClickListener {
-            activity?.navView?.selectedItemId = R.id.navigation_search
-        }
-
         movieAdapter.onItemSelected = { movieId ->
-            //activity?.navView?.visibility = View.INVISIBLE
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, MovieDetailFragment.newInstance(movieId))
                 ?.addToBackStack(null)

@@ -54,7 +54,6 @@ class TabMovieFragment : BaseFragment(R.layout.fragment_tab_movie) {
         })
 
         tabMovieAdapter.onItemSelected = { movieId ->
-            //activity?.navView?.visibility = View.INVISIBLE
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, MovieDetailFragment.newInstance(movieId))
                 ?.addToBackStack(null)

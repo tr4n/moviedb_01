@@ -8,5 +8,4 @@ object Constant {
     const val API_KEY = BuildConfig.API_KEY
     const val LANGUAGE = "vi-VN"
     const val ARGUMENT_KEY_TAB = "ARGUMENT_KEY_TAB"
-    const val ARGUMENT_MOVIE_ID_KEY = "BUNDLE_MOVIE_ID_KEY"
 }
