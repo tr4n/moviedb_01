@@ -6,65 +6,47 @@
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color"
+        android:background="@color/color_dark_shade_of_gray"
         tools:context=".ui.home.HomeFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewNewlyMovie"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="@dimen/dp_72"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/editSearch"
-            tools:layout_editor_absoluteX="24dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/progressNewLyMovie" />
 
         <ProgressBar
             android:id="@+id/progressNewLyMovie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="42dp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editSearch" />
+            app:layout_constraintTop_toBottomOf="@+id/what_do_you" />
 
         <TextView
             android:id="@+id/what_do_you"
             android:layout_width="@dimen/dp_317"
             android:layout_height="@dimen/dp_27"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="42dp"
+            android:layout_marginStart="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_42"
             android:gravity="top"
             android:text="@string/what_do_you"
             android:textAppearance="@style/what_do_you"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/editSearch"
-            android:background="@drawable/edit_text_search_background"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dp_12"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/text_search"
-            android:textColor="@color/white"
-            android:drawableEnd="@drawable/ic_button_search"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/what_do_you"
-            android:importantForAutofill="no" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="400dp"
+            android:layout_marginTop="@dimen/dp_300"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -72,7 +54,7 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="24dp"
                 app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerViewNewlyMovie"
@@ -80,29 +62,29 @@
                 tools:layout_editor_absoluteX="24dp">
 
                 <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="@string/name_tab_now_playing" />
 
                 <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="@string/name_tab_upcoming" />
 
                 <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="@string/name_tab_top_rated" />
 
                 <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="@string/name_tab_popular" />
             </com.google.android.material.tabs.TabLayout>
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPage"
-                android:background="@color/background_color"
+                android:background="@color/color_dark_shade_of_gray"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

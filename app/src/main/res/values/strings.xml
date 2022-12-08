@@ -10,6 +10,7 @@
     <string name="name_tab_upcoming">Upcoming</string>
     <string name="name_tab_top_rated">Top rated</string>
     <string name="name_tab_popular">Popular</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

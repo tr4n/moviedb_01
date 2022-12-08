@@ -1,24 +1,43 @@
 package com.tr4n.moviedb
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupWithNavController
-import com.tr4n.moviedb.databinding.ActivityMainBinding
+import com.tr4n.moviedb.ui.NavTab
+import com.tr4n.moviedb.ui.favorite.FavoriteFragment
+import com.tr4n.moviedb.ui.home.HomeFragment
+import com.tr4n.moviedb.ui.search.SearchFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
+    private val homeFragment = HomeFragment()
+    private  val searchFragment = SearchFragment()
+    private val favoriteFragment = FavoriteFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val navView: BottomNavigationView = binding.navView
-
-        val navController = findNavController(R.id.nav_host_fragment_activity_home)
-        navView.setupWithNavController(navController)
+        setContentView(R.layout.activity_main)
+        navButtonHome.isChecked = true
+        navView.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                NavTab.Home.checkId -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment_container, homeFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+                NavTab.Search.checkId -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment_container, searchFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+                NavTab.Favorite.checkId -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment_container, favoriteFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+        }
     }
 }
