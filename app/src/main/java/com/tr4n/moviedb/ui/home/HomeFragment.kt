@@ -21,9 +21,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun initData() {
         viewModel.getTabMovie(HomeTab.NOW_PLAYING.tabNameRes, currentPage)
         movieAdapter.submitList(viewModel.listMoviesNowPlaying.value)
-    }
-
-    override fun listenEvents() {
         val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
 
         viewPage.adapter = viewPagerAdapter
@@ -43,7 +40,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 }
             }
         }.attach()
+    }
 
+    override fun listenEvents() {
         recyclerViewNewlyMovie.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)

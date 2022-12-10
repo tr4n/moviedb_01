@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/color_dark_shade_of_gray"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_120"
+    android:layout_margin="@dimen/dp_12">
+
+    <ImageView
+        android:id="@+id/imageViewMovieSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textTitleNameMovieSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/dp_12"
+        android:textColor="@color/white"
+        android:text="@string/titleNameMovie"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMovieSearch"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textVoteAverage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_12"
+        android:text="@string/voteAverage"
+        android:textColor="@color/color_orange"
+        android:drawablePadding="@dimen/dp_4"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMovieSearch"
+        app:layout_constraintTop_toBottomOf="@+id/textTitleNameMovieSearch"
+        app:drawableStartCompat="@drawable/ic_star" />
+
+    <TextView
+        android:id="@+id/textGenre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:text="@string/genre"
+        android:textColor="@color/white"
+        android:drawablePadding="@dimen/dp_4"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMovieSearch"
+        app:layout_constraintTop_toBottomOf="@+id/textVoteAverage"
+        app:drawableStartCompat="@drawable/ic_ticket" />
+
+    <TextView
+        android:id="@+id/textReleaseYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_12"
+        android:text="@string/release_year"
+        android:textColor="@color/white"
+        android:drawablePadding="@dimen/dp_4"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMovieSearch"
+        app:layout_constraintTop_toBottomOf="@+id/textGenre"
+        app:drawableStartCompat="@drawable/ic_calendar_blank" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

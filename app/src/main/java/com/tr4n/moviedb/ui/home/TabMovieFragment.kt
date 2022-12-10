@@ -42,7 +42,7 @@ class TabMovieFragment : BaseFragment(R.layout.fragment_tab_movie) {
     }
 
     override fun listenEvents() {
-        activity?.scrollViewHome?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        activity?.scrollViewHome?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
             if (scrollY == 0 && currentPage > 1) {
                 viewModel.getPreTabMovie(tabMovie, currentPage)
                 currentPage--

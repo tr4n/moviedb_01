@@ -10,7 +10,8 @@
     <string name="name_tab_upcoming">Upcoming</string>
     <string name="name_tab_top_rated">Top rated</string>
     <string name="name_tab_popular">Popular</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="titleNameMovie">title Name movie</string>
+    <string name="voteAverage">Ratting</string>
+    <string name="genre">genre</string>
+    <string name="release_year">release year</string>
 </resources>

@@ -13,6 +13,10 @@ data class Movie(
     val votAverage : Float?,
     @SerializedName("original_title")
     val originalTitle : String = "",
+    @SerializedName("title")
+    val title : String = "",
+    @SerializedName("genre_ids")
+    val genreIds : List<Int>,
     @SerializedName("original_language")
     val originalLanguage : String = "",
     @SerializedName("release_date")
