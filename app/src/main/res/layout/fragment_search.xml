@@ -7,19 +7,67 @@
     android:background="@color/color_dark_shade_of_gray"
     tools:context=".ui.search.SearchFragment">
 
-    <TextView
-        android:id="@+id/textSearch"
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:text="Search Tab"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_24"
+        android:padding="@dimen/dp_8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/title_search"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_20" />
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/editSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:background="@drawable/edit_text_search_background"
+        android:drawableEnd="@drawable/ic_button_search"
+        android:ems="10"
+        android:hint="@string/title_search"
+        android:inputType="textPersonName"
+        android:minHeight="@dimen/dp_42"
+        android:minWidth="@dimen/dp_331"
+        android:paddingStart="@dimen/dp_24"
+        android:paddingEnd="@dimen/dp_16"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMovieSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editSearch"
+        tools:itemCount="20"
+        tools:listitem="@layout/item_movie_search_recyclerview"/>
+
+    <ProgressBar
+        android:id="@+id/progressBarSearchMovie"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewMovieSearch" />
 </androidx.constraintlayout.widget.ConstraintLayout>
