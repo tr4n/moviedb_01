@@ -9,6 +9,11 @@ interface ApiService {
     @GET("movie/{tab}")
     suspend fun getTabMovie(
         @Path("tab") tab : String,
-        @Query("page") page : Int,
+        @Query("page") page : Int
         ) : MoviesResponse
+    @GET("search/movie")
+    suspend fun getMovieSearchResults(
+        @Query("query") query : String,
+        @Query("page") page: Int
+    ) : MoviesResponse
 }

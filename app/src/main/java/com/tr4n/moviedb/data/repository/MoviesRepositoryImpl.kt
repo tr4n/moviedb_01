@@ -8,4 +8,8 @@ class MoviesRepositoryImpl(private val apiService: ApiService) : MoviesRepositor
     override suspend fun getTabMovie(tab: String, page: Int): MoviesResponse {
         return apiService.getTabMovie(tab, page)
     }
+
+    override suspend fun getMovieSearchResults(query: String, page: Int): MoviesResponse {
+        return apiService.getMovieSearchResults(query, page)
+    }
 }
