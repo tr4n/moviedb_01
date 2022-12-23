@@ -14,4 +14,9 @@
     <string name="voteAverage">Ratting</string>
     <string name="genre">genre</string>
     <string name="release_year">release year</string>
+    <string name="text_detail">Detail</string>
+    <string name="movie_title">original title</string>
+    <string name="text_tab_about_movie">About Movie</string>
+    <string name="text_tab_reviews">Reviews</string>
+    <string name="text_tab_similar_movie">Similar Movie</string>
 </resources>

@@ -3,16 +3,31 @@ package com.tr4n.moviedb.ui.detail
 import android.content.Context
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import com.google.android.material.tabs.TabLayoutMediator
 import com.tr4n.moviedb.R
 import com.tr4n.moviedb.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
+import kotlinx.android.synthetic.main.fragment_movie_detail.tabLayout
 
 
 class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
     private var movieId = 0L
     override fun initData() {
-        //TODO("Not yet implemented")
-        Toast.makeText(activity, movieId.toString(), Toast.LENGTH_SHORT).show()
+        val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
+        viewPageMovieDetail.adapter = viewPagerAdapter
+        TabLayoutMediator(tabLayout, viewPageMovieDetail) { tab, position ->
+            when(position) {
+                DetailTab.ABOUT_MOVIE.position -> {
+                    tab.setText(DetailTab.ABOUT_MOVIE.tabName)
+                }
+                DetailTab.REVIEWS.position -> {
+                    tab.setText(DetailTab.REVIEWS.tabName)
+                }
+                DetailTab.SIMILAR.position -> {
+                    tab.setText(DetailTab.SIMILAR.tabName)
+                }
+            }
+        }.attach()
     }
 
     override fun listenEvents() {
