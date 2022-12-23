@@ -70,7 +70,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         movieAdapter.onItemSelected = { movieId ->
             activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, MovieDetailFragment.newInstance(movieId))
+                ?.add(R.id.container, MovieDetailFragment.newInstance(movieId))
                 ?.addToBackStack(null)
                 ?.commit()
         }

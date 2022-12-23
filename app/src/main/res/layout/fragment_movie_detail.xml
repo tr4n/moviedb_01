@@ -8,16 +8,18 @@
     android:background="@color/color_dark_shade_of_gray"
     tools:context=".ui.detail.MovieDetailFragment">
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/frameLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_24"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginEnd="@dimen/dp_24"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <ImageButton
             android:id="@+id/buttonBackFromDetail"
             android:layout_width="wrap_content"
@@ -25,5 +27,177 @@
             android:layout_margin="@dimen/dp_8"
             android:background="@drawable/ic_button_back"
             tools:ignore="ContentDescription" />
-    </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/text_detail"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:button="@drawable/ic_favorite_checked" />
+
+    </FrameLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_50"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageViewBackdropPathMovieDetail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_210"
+                android:layout_marginTop="@dimen/dp_20"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <ImageView
+                android:id="@+id/imageViewPosterPathMovieDetail"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_120"
+                android:layout_marginStart="@dimen/dp_29"
+                android:layout_marginTop="@dimen/dp_151"
+                app:layout_constraintStart_toStartOf="@+id/imageViewBackdropPathMovieDetail"
+                app:layout_constraintTop_toTopOf="@+id/imageViewBackdropPathMovieDetail"
+                tools:ignore="ContentDescription"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginEnd="@dimen/dp_29"
+                android:gravity="center_vertical"
+                android:lines="2"
+                android:text="@string/movie_title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewPosterPathMovieDetail"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewBackdropPathMovieDetail" />
+
+            <LinearLayout
+                android:layout_width="@dimen/dp_274"
+                android:layout_height="@dimen/dp_32"
+                android:layout_marginStart="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginEnd="@dimen/dp_50"
+                android:padding="@dimen/dp_7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewPosterPathMovieDetail">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_calendar_blank_dark"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textReleaseYearMovieDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_grey_suit" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_7"
+                    android:layout_marginEnd="@dimen/dp_7"
+                    android:src="@drawable/ic_vertical_line"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_clock"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textRuntimeMovieDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_grey_suit" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_7"
+                    android:layout_marginEnd="@dimen/dp_7"
+                    android:src="@drawable/ic_vertical_line"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_ticket_dark"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textGenreMovieDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_grey_suit" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_120"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageViewBackdropPathMovieDetail">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_24"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewNewlyMovie"
+                    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                    app:tabTextColor="@color/white">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/text_tab_about_movie" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/text_tab_reviews" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/text_tab_similar_movie" />
+                </com.google.android.material.tabs.TabLayout>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPageMovieDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_dark_shade_of_gray" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
