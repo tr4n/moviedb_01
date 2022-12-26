@@ -21,6 +21,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun initData() {
         viewModel.getTabMovie(HomeTab.NOW_PLAYING.tabNameRes, currentPage)
         movieAdapter.submitList(viewModel.listMoviesNowPlaying.value)
+        movieAdapter.currentPage = currentPage -1
         val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
 
         viewPage.adapter = viewPagerAdapter
@@ -46,24 +47,29 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         recyclerViewNewlyMovie.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val visibleItemCount = recyclerView.layoutManager?.childCount
+                val visibleItemCount = recyclerView.layoutManager?.childCount ?: 0
                 val total = movieAdapter.itemCount
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
                 if (dx > 0) {
-                    if (visibleItemCount != null && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
+                    if (!isLoading && (visibleItemCount + pastVisibleItem) >= total) {
                         isLoading = true
                         viewModel.getNextTabMovie(HomeTab.NOW_PLAYING.tabNameRes,
                             currentPage)
+                        movieAdapter.currentPage = currentPage - 1
                         currentPage++
                     }
                 } else if (currentPage > 1 && dx < 0) {
-                    if (pastVisibleItem <= visibleItemCount!! && !isLoading) {
+                    if (pastVisibleItem <= visibleItemCount - 3 && !isLoading) {
                         isLoading = true
+                        println(currentPage)
                         viewModel.getPreTabMovie(HomeTab.NOW_PLAYING.tabNameRes,
                             currentPage)
                         currentPage--
+                        movieAdapter.currentPage = currentPage - 1
                     }
+                } else {
+                    movieAdapter.currentPage = currentPage - 1
                 }
             }
         })

@@ -1,96 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollViewHome"
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@color/color_dark_shade_of_gray"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ui.home.HomeFragment"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewNewlyMovie"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_dark_shade_of_gray"
-        tools:context=".ui.home.HomeFragment">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/progressNewLyMovie"
+        tools:itemCount="20"
+        tools:listitem="@layout/item_movie" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewNewlyMovie"
+    <ProgressBar
+        android:id="@+id/progressNewLyMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/what_do_you" />
+
+    <TextView
+        android:id="@+id/what_do_you"
+        android:layout_width="@dimen/dp_317"
+        android:layout_height="@dimen/dp_27"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_24"
+        android:gravity="top"
+        android:text="@string/what_do_you"
+        android:textAppearance="@style/what_do_you"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewNewlyMovie">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp_72"
-            android:orientation="horizontal"
-            tools:itemCount="20"
-            tools:listitem="@layout/item_movie"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/progressNewLyMovie" />
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            app:tabTextColor="@color/white"
+            tools:layout_editor_absoluteX="24dp">
 
-        <ProgressBar
-            android:id="@+id/progressNewLyMovie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/what_do_you" />
-
-        <TextView
-            android:id="@+id/what_do_you"
-            android:layout_width="@dimen/dp_317"
-            android:layout_height="@dimen/dp_27"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="@dimen/dp_24"
-            android:layout_marginTop="@dimen/dp_42"
-            android:gravity="top"
-            android:text="@string/what_do_you"
-            android:textAppearance="@style/what_do_you"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp_300"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="24dp"
-                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerViewNewlyMovie"
-                app:tabTextColor="@color/white"
-                tools:layout_editor_absoluteX="24dp">
+                android:text="@string/name_tab_now_playing" />
 
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/name_tab_now_playing" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/name_tab_upcoming" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/name_tab_top_rated" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/name_tab_popular" />
-            </com.google.android.material.tabs.TabLayout>
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewPage"
-                android:background="@color/color_dark_shade_of_gray"
+            <com.google.android.material.tabs.TabItem
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:text="@string/name_tab_upcoming" />
 
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/name_tab_top_rated" />
 
-</androidx.core.widget.NestedScrollView>
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/name_tab_popular" />
+        </com.google.android.material.tabs.TabLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_dark_shade_of_gray" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
