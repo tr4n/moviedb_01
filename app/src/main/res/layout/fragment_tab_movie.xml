@@ -5,6 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <ProgressBar
+        android:id="@+id/progressTabMovieAbove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/recyclerViewTabMovie"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTabMovie"
         android:layout_width="match_parent"
@@ -13,11 +22,11 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="3"
-        tools:itemCount="20"
+        tools:itemCount="10"
         tools:listitem="@layout/item_movie" />
 
     <ProgressBar
-        android:id="@+id/progressTabMovie"
+        android:id="@+id/progressTabMovieBelow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/recyclerViewTabMovie"

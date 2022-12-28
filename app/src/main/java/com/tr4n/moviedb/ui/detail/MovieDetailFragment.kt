@@ -1,13 +1,11 @@
 package com.tr4n.moviedb.ui.detail
 
 import android.content.Context
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tr4n.moviedb.R
 import com.tr4n.moviedb.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
-import kotlinx.android.synthetic.main.fragment_movie_detail.tabLayout
 
 
 class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
