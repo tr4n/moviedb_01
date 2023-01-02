@@ -1,5 +1,6 @@
 package com.tr4n.moviedb.di
 
+import com.tr4n.moviedb.ui.detail.MovieDetailViewModel
 import com.tr4n.moviedb.ui.favorite.FavoriteViewModel
 import com.tr4n.moviedb.ui.home.HomeViewModel
 import com.tr4n.moviedb.ui.home.TabMovieViewModel
@@ -20,4 +21,9 @@ val viewModelModule = module {
     viewModel {
         TabMovieViewModel()
     }
+    viewModel {
+        MovieDetailViewModel()
+    }
+
 }
+

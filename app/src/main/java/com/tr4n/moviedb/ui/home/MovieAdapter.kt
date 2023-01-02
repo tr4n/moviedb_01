@@ -12,9 +12,8 @@ import com.tr4n.moviedb.utils.Constant
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(Movie.diffCallback) {
-
+    var horizontal = false
     var onItemSelected : (Long) -> Unit = {}
-    var currentPage = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
@@ -22,7 +21,7 @@ class MovieAdapter : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(Movie.diff
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.binData(getItem(position), position, currentPage)
+        holder.binData(getItem(position), position, horizontal)
     }
 
     class MovieViewHolder(
@@ -37,18 +36,14 @@ class MovieAdapter : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(Movie.diff
             }
         }
         private var itemData : Movie ?= null
-        fun binData(movie: Movie, position: Int, currentPage: Int) {
+        fun binData(movie: Movie, position: Int, horizontal : Boolean) {
             itemData = movie
             itemView.run {
                 Glide.with(this)
                     .load(Constant.BASE_URL_IMAGE + itemData?.url)
                     .into(imageViewMovie)
-                var number = position + 1 + currentPage * 20
-                if (position == 19 || position == 39) {
-                    number = 20 + currentPage * 20
-                }
-                if (currentPage != -1) {
-                    itemView.textMovieNumber.text = number.toString()
+                if (horizontal) {
+                    itemView.textMovieNumber.text = (position + 1).toString()
                 }
             }
         }

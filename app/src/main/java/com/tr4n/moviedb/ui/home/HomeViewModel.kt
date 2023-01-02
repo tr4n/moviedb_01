@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class HomeViewModel : BaseViewModel(), KoinComponent {
     private val moviesRepository : MoviesRepository by inject()
 
-    var listMoviesNowPlaying = MutableLiveData<List<Movie>?>()
+    var listMoviesNowPlaying = MutableLiveData<List<Movie>>()
 
     fun getTabMovie(tab : String, page : Int) {
         viewModelScope.launch {
@@ -24,23 +24,4 @@ class HomeViewModel : BaseViewModel(), KoinComponent {
         }
     }
 
-    fun getNextTabMovie(tab: String, page: Int) {
-        viewModelScope.launch {
-            try {
-                val nextTabMovies = moviesRepository.getTabMovie(tab, page +1).results ?: emptyList()
-                val currentTabMovies = moviesRepository.getTabMovie(tab, page).results ?: emptyList()
-                listMoviesNowPlaying.value = currentTabMovies.plus(nextTabMovies)
-            } catch (ex : Exception) {
-                exception.value = ex
-            }
-        }
-    }
-
-    fun getPreTabMovie(tab : String, page: Int) {
-        viewModelScope.launch {
-            val preTabMovies = moviesRepository.getTabMovie(tab, page -1).results ?: emptyList()
-            val currentTabMovies = moviesRepository.getTabMovie(tab, page).results ?: emptyList()
-           listMoviesNowPlaying.value = preTabMovies.plus(currentTabMovies)
-        }
-    }
 }

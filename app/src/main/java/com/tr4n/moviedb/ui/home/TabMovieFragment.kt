@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tr4n.moviedb.R
 import com.tr4n.moviedb.base.BaseFragment
+import com.tr4n.moviedb.data.model.Movie
 import com.tr4n.moviedb.ui.detail.MovieDetailFragment
 import com.tr4n.moviedb.utils.Constant
 import kotlinx.android.synthetic.main.fragment_tab_movie.*
@@ -15,6 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class TabMovieFragment : BaseFragment(R.layout.fragment_tab_movie) {
     private val viewModel : TabMovieViewModel by viewModel()
     private val tabMovieAdapter = MovieAdapter()
+    private var listMovie = listOf<Movie>()
     private var tabMovie = ""
     private var currentPage = 1
     private var isLoading = false
@@ -50,20 +52,11 @@ class TabMovieFragment : BaseFragment(R.layout.fragment_tab_movie) {
                 val total = tabMovieAdapter.itemCount
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
-                if (dy > 0) {
-                    if (!isLoading && (visibleItemCount + pastVisibleItem) >= total) {
-                        isLoading = true
-                        viewModel.getNextTabMovie(HomeTab.NOW_PLAYING.tabNameRes,
-                            currentPage)
-                        currentPage++
-                    }
-                } else if (currentPage > 1 && dy < 0) {
-                    if (pastVisibleItem <= visibleItemCount && !isLoading) {
-                        isLoading = true
-                        viewModel.getPreTabMovie(HomeTab.NOW_PLAYING.tabNameRes,
-                            currentPage)
-                        currentPage--
-                    }
+                if (dy > 0 && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
+                    isLoading = true
+                    viewModel.getTabMovie(HomeTab.NOW_PLAYING.tabNameRes,
+                        currentPage)
+                    currentPage++
                 }
             }
         })
@@ -81,7 +74,8 @@ class TabMovieFragment : BaseFragment(R.layout.fragment_tab_movie) {
         viewModel.listMoviesTabName.observe(viewLifecycleOwner) {
             isLoading = false
             progressTabMovieBelow.isVisible = it.isEmpty()
-            tabMovieAdapter.submitList(it)
+            listMovie = listMovie.plus(it)
+            tabMovieAdapter.submitList(listMovie)
         }
         viewModel.exception.observe(viewLifecycleOwner) {
             context?.run {
