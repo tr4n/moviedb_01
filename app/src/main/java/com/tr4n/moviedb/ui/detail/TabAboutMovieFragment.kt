@@ -9,6 +9,7 @@ class TabAboutMovieFragment : BaseFragment(R.layout.fragment_tab_about_movie) {
     private val viewModel : MovieDetailViewModel by activityViewModel()
 
     override fun initData() {
+        //TODO("Not yet implemented")
     }
 
     override fun listenEvents() {
@@ -21,8 +22,6 @@ class TabAboutMovieFragment : BaseFragment(R.layout.fragment_tab_about_movie) {
         }
     }
 
-    override fun setupViews() {
-
-    }
+    override fun setupViews() {}
 
 }

@@ -71,8 +71,7 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
         }
     }
 
-    override fun setupViews() {
-    }
+    override fun setupViews() {}
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
