@@ -20,23 +20,21 @@ class TabReviewsFragment : BaseFragment(R.layout.fragment_tab_reviews) {
 
     override fun initData() {}
     override fun listenEvents() {
-        activity?.nestedScrollViewMovieDetail?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
-            if (scrollY == v.getChildAt(0).height - v.height) {
-                v.recyclerViewReviews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        val visibleItemCount = recyclerView.layoutManager?.childCount ?: 0
-                        val total = reviewAdapter.itemCount
-                        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                        val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
-                        if (dx > 0 && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
-                            isLoading = true
-                            viewModel.getMovieReviews(currentPage)
-                            currentPage++
-                        }
+        activity?.nestedScrollViewMovieDetail?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, _, _, _ ->
+            v.recyclerViewReviews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val visibleItemCount = recyclerView.layoutManager?.childCount ?: 0
+                    val total = reviewAdapter.itemCount
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
+                    if (dx > 0 && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
+                        isLoading = true
+                        viewModel.getMovieReviews(currentPage)
+                        currentPage++
                     }
-                })
-            }
+                }
+            })
         })
     }
 

@@ -26,23 +26,21 @@ class TabSimilarMovieFragment : BaseFragment(R.layout.fragment_tab_similar_movie
     }
 
     override fun listenEvents() {
-        activity?.nestedScrollViewMovieDetail?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
-            if (scrollY == v.getChildAt(0).height - v.height) {
-                v.recyclerViewSimilarMovie?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        val visibleItemCount = recyclerView.layoutManager?.childCount ?: 0
-                        val total = movieSimilarAdapter.itemCount
-                        val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                        val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
-                        if (dy > 0 && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
-                            isLoading = true
-                            viewModel.getMoviesSimilar(currentPage)
-                            currentPage++
-                        }
+        activity?.nestedScrollViewMovieDetail?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, _, _, _ ->
+            v.recyclerViewSimilarMovie?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val visibleItemCount = recyclerView.layoutManager?.childCount ?: 0
+                    val total = movieSimilarAdapter.itemCount
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
+                    if (dy > 0 && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
+                        isLoading = true
+                        viewModel.getMoviesSimilar(currentPage)
+                        currentPage++
                     }
-                })
-            }
+                }
+            })
         })
         movieSimilarAdapter.onItemSelected = { movieId ->
             activity?.supportFragmentManager?.beginTransaction()

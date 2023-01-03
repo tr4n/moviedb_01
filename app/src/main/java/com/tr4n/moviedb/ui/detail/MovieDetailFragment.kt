@@ -67,11 +67,15 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
             }
             textVoteAverage.text = movieDetail.voteAverage.toString()
             textGenreMovieDetail.text = movieGenres
-            viewPageMovieDetail.layoutParams.height = (activity?.container?.height ?: 0) - linearLayoutBottom.height
+            activity?.viewPageMovieDetail?.layoutParams?.height = (activity?.container?.height ?: 0) -
+                    (activity?.linearLayoutBottom?.height ?: 0) - (activity?.linearLayout?.height ?: 0) -
+                    (activity?.linearLayout?.paddingBottom ?: 0)
         }
     }
 
-    override fun setupViews() {}
+    override fun setupViews() {
+        //
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

@@ -41,9 +41,16 @@ class MovieSearchAdapter : ListAdapter<Movie, MovieSearchAdapter.MovieSearchView
         fun binData(movie: Movie) {
             itemData = movie
             itemView.run {
-                Glide.with(this)
-                    .load(Constant.BASE_URL_IMAGE + itemData?.url)
-                    .into(imageViewMovieSearch)
+                if (itemData?.url != null) {
+                    Glide.with(this)
+                        .load(Constant.BASE_URL_IMAGE + itemData?.url)
+                        .into(imageViewMovieSearch)
+                } else {
+                    Glide.with(this)
+                        .load(Constant.URL_IMG_NULL)
+                        .into(imageViewMovieSearch)
+                }
+
                 textTitleNameMovieSearch.text = itemData?.title
                 textVoteAverage.text = itemData?.votAverage.toString()
                 textGenre.text = itemData?.genreIds.toString()

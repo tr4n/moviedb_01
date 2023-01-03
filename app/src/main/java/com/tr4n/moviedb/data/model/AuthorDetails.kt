@@ -10,5 +10,5 @@ data class AuthorDetails(
     @SerializedName("avatar_path")
     val avatarPath : String = "",
     @SerializedName("rating")
-    val rating: Int
+    val rating: Float
 )

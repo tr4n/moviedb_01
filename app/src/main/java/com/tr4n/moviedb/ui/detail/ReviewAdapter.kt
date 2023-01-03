@@ -29,9 +29,20 @@ class ReviewAdapter : ListAdapter<Review, ReviewAdapter.ReviewViewHolder>(Review
         fun binData(review: Review) {
             itemData = review
             itemView.run {
+                val avatarPath = if (itemData?.authorDetails?.avatarPath != null) {
+                    if ((itemData?.authorDetails?.avatarPath ?: "").contains(Constant.URL_EXTERNAL_AVATAR)) {
+                        itemData?.authorDetails?.avatarPath!!.substring(1)
+                    } else {
+                        Constant.BASE_URL_IMAGE + itemData?.authorDetails?.avatarPath
+                    }
+                } else {
+                    Constant.URL_IMG_NULL
+                }
+
                 Glide.with(this)
-                    .load(Constant.BASE_URL_IMAGE + itemData?.authorDetails?.avatarPath)
+                    .load(avatarPath)
                     .into(imgAvatarReviewer)
+
                 textRating.text = itemData?.authorDetails?.rating.toString()
                 textAuthor.text = itemData?.authorDetails?.userName
                 textContent.text = itemData?.content

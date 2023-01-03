@@ -22,6 +22,8 @@ class TabAboutMovieFragment : BaseFragment(R.layout.fragment_tab_about_movie) {
         }
     }
 
-    override fun setupViews() {}
+    override fun setupViews() {
+        //TODO("Not yet implemented")
+    }
 
 }
