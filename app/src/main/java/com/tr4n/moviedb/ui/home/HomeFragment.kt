@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tr4n.moviedb.R
 import com.tr4n.moviedb.base.BaseFragment
+import com.tr4n.moviedb.data.model.Movie
 import com.tr4n.moviedb.ui.detail.MovieDetailFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -13,6 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModel()
+    private var listMovieNowPlaying = listOf<Movie>()
     private var currentPage = 1
     private var isLoading = false
 
@@ -21,7 +23,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun initData() {
         viewModel.getTabMovie(HomeTab.NOW_PLAYING.tabNameRes, currentPage)
         movieAdapter.submitList(viewModel.listMoviesNowPlaying.value)
-        movieAdapter.currentPage = currentPage -1
+        movieAdapter.horizontal = true
         val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
 
         viewPage.adapter = viewPagerAdapter
@@ -51,25 +53,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 val total = movieAdapter.itemCount
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
-                if (dx > 0) {
-                    if (!isLoading && (visibleItemCount + pastVisibleItem) >= total) {
-                        isLoading = true
-                        viewModel.getNextTabMovie(HomeTab.NOW_PLAYING.tabNameRes,
-                            currentPage)
-                        movieAdapter.currentPage = currentPage - 1
-                        currentPage++
-                    }
-                } else if (currentPage > 1 && dx < 0) {
-                    if (pastVisibleItem <= visibleItemCount - 3 && !isLoading) {
-                        isLoading = true
-                        println(currentPage)
-                        viewModel.getPreTabMovie(HomeTab.NOW_PLAYING.tabNameRes,
-                            currentPage)
-                        currentPage--
-                        movieAdapter.currentPage = currentPage - 1
-                    }
-                } else {
-                    movieAdapter.currentPage = currentPage - 1
+                if (dx > 0 && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
+                    isLoading = true
+                    viewModel.getTabMovie(HomeTab.NOW_PLAYING.tabNameRes,
+                        currentPage)
+                    currentPage++
                 }
             }
         })
@@ -88,7 +76,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             if (it != null) {
                 progressNewLyMovie.isVisible = it.isEmpty()
             }
-            movieAdapter.submitList(it)
+            listMovieNowPlaying = listMovieNowPlaying.plus(it)
+            movieAdapter.submitList(listMovieNowPlaying)
         }
     }
 

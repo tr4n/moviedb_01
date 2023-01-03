@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraintLayoutMovieDetail"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,7 +10,7 @@
     tools:context=".ui.detail.MovieDetailFragment">
 
     <FrameLayout
-        android:id="@+id/frameLayout2"
+        android:id="@+id/frameLayoutTop"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_24"
@@ -46,39 +47,59 @@
 
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollViewMovieDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/dp_50"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/frameLayoutTop">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageViewBackdropPathMovieDetail"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_210"
                 android:layout_marginTop="@dimen/dp_20"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedRectangle"
+                android:adjustViewBounds="true"
+                app:strokeColor="@null"
                 tools:ignore="ContentDescription"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageViewPosterPathMovieDetail"
-                android:layout_width="@dimen/dp_0"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_120"
                 android:layout_marginStart="@dimen/dp_29"
                 android:layout_marginTop="@dimen/dp_151"
+                app:shapeAppearanceOverlay="@style/roundedRectangle"
+                android:adjustViewBounds="true"
+                app:strokeColor="@null"
                 app:layout_constraintStart_toStartOf="@+id/imageViewBackdropPathMovieDetail"
                 app:layout_constraintTop_toTopOf="@+id/imageViewBackdropPathMovieDetail"
                 tools:ignore="ContentDescription"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/textTitle"
+                android:id="@+id/textVoteAverage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_12"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:padding="@dimen/dp_8"
+                android:textColor="@color/color_orange"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewBackdropPathMovieDetail"
+                app:layout_constraintEnd_toEndOf="@+id/imageViewBackdropPathMovieDetail"
+                tools:text="9.5"
+                app:drawableStartCompat="@drawable/ic_star_orange" />
+
+            <TextView
+                android:id="@+id/textOriginalTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_12"
@@ -94,11 +115,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageViewBackdropPathMovieDetail" />
 
             <LinearLayout
-                android:layout_width="@dimen/dp_274"
-                android:layout_height="@dimen/dp_32"
+                android:id="@+id/linearLayout"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_50"
                 android:layout_marginTop="@dimen/dp_16"
-                android:layout_marginEnd="@dimen/dp_50"
                 android:padding="@dimen/dp_7"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -158,18 +179,17 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayoutBottom"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_120"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageViewBackdropPathMovieDetail">
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dp_24"
+                    android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/recyclerViewNewlyMovie"
                     app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
                     app:tabTextColor="@color/white">
@@ -189,13 +209,16 @@
                         android:layout_height="match_parent"
                         android:text="@string/text_tab_similar_movie" />
                 </com.google.android.material.tabs.TabLayout>
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPageMovieDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/color_dark_shade_of_gray" />
             </LinearLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPageMovieDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_dark_shade_of_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayoutBottom" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

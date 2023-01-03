@@ -25,24 +25,4 @@ class TabMovieViewModel : BaseViewModel(), KoinComponent {
         }
     }
 
-    fun getNextTabMovie(tab: String, page: Int) {
-        viewModelScope.launch {
-            try {
-                val nextTabMovies = moviesRepository.getTabMovie(tab,page+1).results ?: emptyList()
-                val currentTabMovies = moviesRepository.getTabMovie(tab, page).results ?: emptyList()
-                listMoviesTabName.value = currentTabMovies.plus(nextTabMovies)
-            } catch (ex : Exception) {
-                exception.value = ex
-            }
-        }
-    }
-
-    fun getPreTabMovie(tab : String, page: Int) {
-        viewModelScope.launch {
-            val preTabMovies = moviesRepository.getTabMovie(tab, page-1).results ?: emptyList()
-            val currentTabMovies = moviesRepository.getTabMovie(tab, page).results ?: emptyList()
-            listMoviesTabName.value = preTabMovies.plus(currentTabMovies)
-        }
-    }
-
 }

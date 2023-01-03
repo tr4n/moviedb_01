@@ -2,12 +2,11 @@ package com.tr4n.moviedb.ui.detail
 
 import com.tr4n.moviedb.R
 import com.tr4n.moviedb.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_tab_about_movie.*
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class TabAboutMovieFragment : BaseFragment(R.layout.fragment_tab_about_movie) {
-
-    companion object {
-        fun newInstance() = TabAboutMovieFragment()
-    }
+    private val viewModel : MovieDetailViewModel by activityViewModel()
 
     override fun initData() {
         //TODO("Not yet implemented")
@@ -18,7 +17,9 @@ class TabAboutMovieFragment : BaseFragment(R.layout.fragment_tab_about_movie) {
     }
 
     override fun observeData() {
-        //TODO("Not yet implemented")
+        viewModel.txtAboutMovie.observe(requireParentFragment()) { aboutMovie ->
+            textAboutMovie.text = aboutMovie
+        }
     }
 
     override fun setupViews() {

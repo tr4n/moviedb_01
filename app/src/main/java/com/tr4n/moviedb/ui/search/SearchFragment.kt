@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tr4n.moviedb.R
 import com.tr4n.moviedb.base.BaseFragment
+import com.tr4n.moviedb.data.model.Movie
 import com.tr4n.moviedb.ui.detail.MovieDetailFragment
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
@@ -16,6 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SearchFragment : BaseFragment(R.layout.fragment_search) {
     private val viewModel : SearchViewModel by viewModel()
     private val movieSearchAdapter = MovieSearchAdapter()
+    private var listMovieSearchResults = listOf<Movie>()
     private var currentPage = 1
     private var isLoading = false
     private var textQuery = ""
@@ -32,18 +34,10 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
                 val total = movieSearchAdapter.itemCount
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
-                if (dy > 0) {
-                    if (visibleItemCount != null && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
-                        isLoading = true
-                        viewModel.getNextMovieSearchPage(textQuery , currentPage)
-                        currentPage++
-                    }
-                } else if (currentPage > 1 && dy < 0) {
-                    if (pastVisibleItem <= visibleItemCount!! && !isLoading) {
-                        isLoading = true
-                        viewModel.getPreMovieSearchPage(textQuery , currentPage)
-                        currentPage--
-                    }
+                if (dy > 0 && visibleItemCount != null && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
+                    isLoading = true
+                    viewModel.getMovieSearchResults(textQuery , currentPage)
+                    currentPage++
                 }
             }
         })
@@ -91,7 +85,8 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
             if (it?.isEmpty() == true && textQuery != "") {
                 progressBarSearchMovie.isVisible = !imgSearchNotFound.isVisible
             }
-            movieSearchAdapter.submitList(it)
+            listMovieSearchResults = listMovieSearchResults.plus(it)
+            movieSearchAdapter.submitList(listMovieSearchResults)
             isLoading = false
         }
     }

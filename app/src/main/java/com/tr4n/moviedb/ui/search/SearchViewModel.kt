@@ -12,7 +12,7 @@ import org.koin.core.component.inject
 class SearchViewModel : BaseViewModel(), KoinComponent {
     private val moviesRepository : MoviesRepository by inject()
 
-    var listMovieSearchResults = MutableLiveData<List<Movie>?>()
+    var listMovieSearchResults = MutableLiveData<List<Movie>>()
 
     fun getMovieSearchResults(query : String, page : Int) {
         viewModelScope.launch {
@@ -24,25 +24,4 @@ class SearchViewModel : BaseViewModel(), KoinComponent {
         }
     }
 
-    fun getNextMovieSearchPage(query: String, page: Int) {
-        viewModelScope.launch {
-            try {
-                val nextMovieSearchPage = moviesRepository.getMovieSearchResults(query, page +1).results ?: emptyList()
-                val currentMovieSearchPage = moviesRepository.getMovieSearchResults(query, page).results ?: emptyList()
-                if (nextMovieSearchPage.isNotEmpty()) {
-                    listMovieSearchResults.value = currentMovieSearchPage.plus(nextMovieSearchPage)
-                }
-            } catch (ex : Exception) {
-                exception.value = ex
-            }
-        }
-    }
-
-    fun getPreMovieSearchPage(query : String, page: Int) {
-        viewModelScope.launch {
-            val preMovieSearchPage = moviesRepository.getMovieSearchResults(query, page -1).results ?: emptyList()
-            val currentMovieSearchPage = moviesRepository.getMovieSearchResults(query, page).results ?: emptyList()
-            listMovieSearchResults.value = preMovieSearchPage.plus(currentMovieSearchPage)
-        }
-    }
 }

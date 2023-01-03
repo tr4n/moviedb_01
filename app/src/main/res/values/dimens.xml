@@ -35,6 +35,7 @@
     <dimen name="dp_317">317dp</dimen>
     <dimen name="dp_327">327dp</dimen>
     <dimen name="dp_331">331dp</dimen>
+    <dimen name="dp_600">600dp</dimen>
     <dimen name="sp_12">12sp</dimen>
     <dimen name="sp_16">16sp</dimen>
     <dimen name="sp_18">18sp</dimen>

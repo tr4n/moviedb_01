@@ -14,6 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/roundedRectangle"
+        app:strokeColor="@null"
         tools:srcCompat="@tools:sample/avatars"
         tools:ignore="ContentDescription" />
 
