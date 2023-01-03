@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 abstract class BaseFragment(@LayoutRes private val layoutRes: Int) : Fragment(layoutRes) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initData()
         setupViews()
+        initData()
         listenEvents()
         observeData()
     }

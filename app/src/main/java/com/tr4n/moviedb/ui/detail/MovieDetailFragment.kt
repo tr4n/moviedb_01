@@ -19,9 +19,9 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
 
     override fun initData() {
         viewModel.getMovieDetails(movieId)
-        viewModel.getAboutMovie(movieId)
-        viewModel.getMovieReviews(movieId, currentPage)
-        viewModel.getMoviesSimilar(movieId, currentPage)
+        viewModel.getAboutMovie()
+        viewModel.getMovieReviews(currentPage)
+        viewModel.getMoviesSimilar(currentPage)
         val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         viewPagerAdapter.movieId = movieId
         viewPageMovieDetail.adapter = viewPagerAdapter
@@ -67,7 +67,7 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
             }
             textVoteAverage.text = movieDetail.voteAverage.toString()
             textGenreMovieDetail.text = movieGenres
-            viewPageMovieDetail.layoutParams.height = (activity?.container?.measuredHeight ?: 0) - linearLayoutBottom.measuredHeight
+            viewPageMovieDetail.layoutParams.height = (activity?.container?.height ?: 0) - linearLayoutBottom.height
         }
     }
 

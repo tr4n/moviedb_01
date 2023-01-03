@@ -1,8 +1,6 @@
 package com.tr4n.moviedb.ui.detail
 
-import android.content.Context
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,12 +18,11 @@ class TabSimilarMovieFragment : BaseFragment(R.layout.fragment_tab_similar_movie
     private val viewModel by activityViewModel<MovieDetailViewModel>()
     private var listMovieSimilar = listOf<Movie>()
     private val movieSimilarAdapter = MovieAdapter()
-    private var movieId = 0L
     private var currentPage = 2
     private var isLoading = false
 
     override fun initData() {
-        movieSimilarAdapter.submitList(viewModel.listMovieSimilar.value)
+        //movieSimilarAdapter.submitList(viewModel.listMovieSimilar.value)
     }
 
     override fun listenEvents() {
@@ -40,7 +37,7 @@ class TabSimilarMovieFragment : BaseFragment(R.layout.fragment_tab_similar_movie
                         val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
                         if (dy > 0 && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
                             isLoading = true
-                            viewModel.getMoviesSimilar(movieId, currentPage)
+                            viewModel.getMoviesSimilar(currentPage)
                             currentPage++
                         }
                     }
@@ -71,24 +68,6 @@ class TabSimilarMovieFragment : BaseFragment(R.layout.fragment_tab_similar_movie
 
     override fun setupViews() {
         recyclerViewSimilarMovie.adapter = movieSimilarAdapter
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        arguments?.getLong(BUNDLE_MOVIE_ID)?.let {
-            movieId = it
-        }
-    }
-
-    companion object {
-        private const val BUNDLE_MOVIE_ID = "BUNDLE_MOVIE_ID"
-
-        fun newInstance(movieId : Long) : TabSimilarMovieFragment {
-            val tabSimilarMovieFragment = TabSimilarMovieFragment().apply {
-                arguments = bundleOf(BUNDLE_MOVIE_ID to movieId)
-            }
-            return tabSimilarMovieFragment
-        }
     }
 
 }

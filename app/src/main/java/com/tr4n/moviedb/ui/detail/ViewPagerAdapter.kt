@@ -15,10 +15,10 @@ class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
                 TabAboutMovieFragment()
             }
             DetailTab.REVIEWS.position -> {
-                TabReviewsFragment.newInstance(movieId)
+                TabReviewsFragment()
             }
             else -> {
-                TabSimilarMovieFragment.newInstance(movieId)
+                TabSimilarMovieFragment()
             }
         }
     }

@@ -1,7 +1,5 @@
 package com.tr4n.moviedb.ui.detail
 
-import android.content.Context
-import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,17 +14,13 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 class TabReviewsFragment : BaseFragment(R.layout.fragment_tab_reviews) {
     private val reviewAdapter = ReviewAdapter()
     private var listReviews = listOf<Review>()
-    private var movieId = 0L
     private var currentPage = 2
     private var isLoading = false
     private val viewModel by activityViewModel<MovieDetailViewModel>()
 
-    override fun initData() {
-        reviewAdapter.submitList(viewModel.movieReviews.value)
-    }
-
+    override fun initData() {}
     override fun listenEvents() {
-        activity?.nestedScrollViewMovieDetail?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        activity?.nestedScrollViewMovieDetail?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
             if (scrollY == v.getChildAt(0).height - v.height) {
                 v.recyclerViewReviews.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -37,7 +31,7 @@ class TabReviewsFragment : BaseFragment(R.layout.fragment_tab_reviews) {
                         val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
                         if (dx > 0 && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
                             isLoading = true
-                            viewModel.getMovieReviews(movieId, currentPage)
+                            viewModel.getMovieReviews(currentPage)
                             currentPage++
                         }
                     }
@@ -58,21 +52,4 @@ class TabReviewsFragment : BaseFragment(R.layout.fragment_tab_reviews) {
         recyclerViewReviews.adapter = reviewAdapter
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        arguments?.getLong(BUNDLE_MOVIE_ID)?.let {
-            movieId = it
-        }
-    }
-
-    companion object {
-        private const val BUNDLE_MOVIE_ID = "BUNDLE_MOVIE_ID"
-
-        fun newInstance(movieId : Long) : TabReviewsFragment {
-            val tabReviewsFragment = TabReviewsFragment().apply {
-                arguments = bundleOf(BUNDLE_MOVIE_ID to movieId)
-            }
-            return tabReviewsFragment
-        }
-    }
 }

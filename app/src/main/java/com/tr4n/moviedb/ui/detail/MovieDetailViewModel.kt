@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter
 
 class MovieDetailViewModel : BaseViewModel(), KoinComponent {
     private val moviesRepository : MoviesRepository by inject()
+    private var movieId = 0L
     val movieDetail = MutableLiveData<MovieDetail>()
     val txtAboutMovie = MutableLiveData<String>()
     val movieReviews = MutableLiveData<List<Review>>()
@@ -24,6 +25,7 @@ class MovieDetailViewModel : BaseViewModel(), KoinComponent {
     fun getMovieDetails(movieId : Long) {
         viewModelScope.launch {
             try {
+                this@MovieDetailViewModel.movieId = movieId
                 movieDetail.value = moviesRepository.getMovieDetails(movieId)
             } catch (ex : Exception) {
                 exception.value = ex
@@ -31,7 +33,7 @@ class MovieDetailViewModel : BaseViewModel(), KoinComponent {
         }
     }
 
-    fun getAboutMovie(movieId : Long) {
+    fun getAboutMovie() {
         viewModelScope.launch {
             try {
                 txtAboutMovie.value = moviesRepository.getMovieDetails(movieId).overview
@@ -41,7 +43,7 @@ class MovieDetailViewModel : BaseViewModel(), KoinComponent {
         }
     }
 
-    fun getMovieReviews(movieId : Long, page : Int) {
+    fun getMovieReviews(page : Int) {
         viewModelScope.launch {
             try {
                 movieReviews.value = moviesRepository.getMovieReviews(movieId, page).results ?: emptyList()
@@ -51,7 +53,7 @@ class MovieDetailViewModel : BaseViewModel(), KoinComponent {
         }
     }
 
-    fun getMoviesSimilar(movieId : Long, page : Int) {
+    fun getMoviesSimilar(page : Int) {
         viewModelScope.launch {
             try {
                 listMovieSimilar.value = moviesRepository.getMovieSimilar(movieId, page).results ?: emptyList()
