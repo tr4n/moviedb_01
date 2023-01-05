@@ -18,7 +18,7 @@ class TabSimilarMovieFragment : BaseFragment(R.layout.fragment_tab_similar_movie
     private val viewModel by activityViewModel<MovieDetailViewModel>()
     private var listMovieSimilar = listOf<Movie>()
     private val movieSimilarAdapter = MovieAdapter()
-    private var currentPage = 2
+    private var currentPage = 1
     private var isLoading = false
 
     override fun initData() {
@@ -36,8 +36,8 @@ class TabSimilarMovieFragment : BaseFragment(R.layout.fragment_tab_similar_movie
                     val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
                     if (dy > 0 && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
                         isLoading = true
-                        viewModel.getMoviesSimilar(currentPage)
                         currentPage++
+                        viewModel.getMoviesSimilar(currentPage)
                     }
                 }
             })

@@ -61,7 +61,7 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
             textOriginalTitle.text = movieDetail?.originalTitle
             var movieGenres = ""
             if (movieDetail?.genres != null) {
-                for (genre in movieDetail.genres) {
+                for (genre in movieDetail.genres ?: emptyList()) {
                     movieGenres += genre.name + " "
                 }
             }

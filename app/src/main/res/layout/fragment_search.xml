@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewMovieSearch"
+        android:id="@+id/recyclerViewWatchList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_30"
@@ -72,7 +72,7 @@
         android:visibility="invisible"
         android:src="@drawable/bg_search_cant_be_found"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewMovieSearch" />
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewWatchList" />
 
     <ProgressBar
         android:id="@+id/progressBarSearchMovie"
@@ -82,5 +82,5 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewMovieSearch" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewWatchList" />
 </androidx.constraintlayout.widget.ConstraintLayout>

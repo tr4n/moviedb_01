@@ -27,7 +27,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
     }
 
     override fun listenEvents() {
-        recyclerViewMovieSearch.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        recyclerViewWatchList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val visibleItemCount = recyclerView.layoutManager?.childCount
@@ -36,8 +36,8 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
                 val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
                 if (dy > 0 && visibleItemCount != null && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
                     isLoading = true
-                    viewModel.getMovieSearchResults(textQuery , currentPage)
                     currentPage++
+                    viewModel.getMovieSearchResults(textQuery , currentPage)
                 }
             }
         })
@@ -89,9 +89,13 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
             movieSearchAdapter.submitList(listMovieSearchResults)
             isLoading = false
         }
+
+        viewModel.listGenres.observe(viewLifecycleOwner) {
+            movieSearchAdapter.listGenres = it
+        }
     }
 
     override fun setupViews() {
-        recyclerViewMovieSearch.adapter = movieSearchAdapter
+        recyclerViewWatchList.adapter = movieSearchAdapter
     }
 }

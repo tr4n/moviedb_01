@@ -1,13 +1,14 @@
 package com.tr4n.moviedb.data.repository
 
-import com.tr4n.moviedb.data.model.GenresResponse
-import com.tr4n.moviedb.data.model.MovieDetail
-import com.tr4n.moviedb.data.model.MovieReviewsResponse
-import com.tr4n.moviedb.data.model.MoviesResponse
+import com.tr4n.moviedb.data.model.*
 import com.tr4n.moviedb.data.source.MoviesRepository
+import com.tr4n.moviedb.data.source.local.room.AppDatabase
 import com.tr4n.moviedb.data.source.remote.api.ApiService
 
-class MoviesRepositoryImpl(private val apiService: ApiService) : MoviesRepository {
+class MoviesRepositoryImpl(
+    private val apiService: ApiService,
+    private val appDatabase: AppDatabase
+    ) : MoviesRepository {
     override suspend fun getTabMovie(tab: String, page: Int): MoviesResponse {
         return apiService.getTabMovie(tab, page)
     }
@@ -16,7 +17,7 @@ class MoviesRepositoryImpl(private val apiService: ApiService) : MoviesRepositor
         return apiService.getMovieSearchResults(query, page)
     }
 
-    override suspend fun getMovieDetails(movieId: Long): MovieDetail {
+    override suspend fun getMovieDetails(movieId: Long): Movie {
         return apiService.getMovieDetails(movieId)
     }
 
@@ -31,4 +32,5 @@ class MoviesRepositoryImpl(private val apiService: ApiService) : MoviesRepositor
     override suspend fun getMovieSimilar(movieId: Long, page: Int): MoviesResponse {
         return apiService.getMovieSimilar(movieId, page)
     }
+
 }

@@ -14,7 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 class TabReviewsFragment : BaseFragment(R.layout.fragment_tab_reviews) {
     private val reviewAdapter = ReviewAdapter()
     private var listReviews = listOf<Review>()
-    private var currentPage = 2
+    private var currentPage = 1
     private var isLoading = false
     private val viewModel by activityViewModel<MovieDetailViewModel>()
 
@@ -30,8 +30,8 @@ class TabReviewsFragment : BaseFragment(R.layout.fragment_tab_reviews) {
                     val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
                     if (dx > 0 && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
                         isLoading = true
-                        viewModel.getMovieReviews(currentPage)
                         currentPage++
+                        viewModel.getMovieReviews(currentPage)
                     }
                 }
             })

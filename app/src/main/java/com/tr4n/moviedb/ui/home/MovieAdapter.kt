@@ -39,9 +39,9 @@ class MovieAdapter : ListAdapter<Movie, MovieAdapter.MovieViewHolder>(Movie.diff
         fun binData(movie: Movie, position: Int, horizontal : Boolean) {
             itemData = movie
             itemView.run {
-                if (itemData?.url != null) {
+                if (itemData?.posterPath != null) {
                     Glide.with(this)
-                        .load(Constant.BASE_URL_IMAGE + itemData?.url)
+                        .load(Constant.BASE_URL_IMAGE + itemData?.posterPath)
                         .into(imageViewMovie)
                 } else {
                     Glide.with(this)
