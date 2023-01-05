@@ -1,7 +1,7 @@
 package com.tr4n.moviedb.data.source.remote.api
 
 import com.tr4n.moviedb.data.model.GenresResponse
-import com.tr4n.moviedb.data.model.MovieDetail
+import com.tr4n.moviedb.data.model.Movie
 import com.tr4n.moviedb.data.model.MovieReviewsResponse
 import com.tr4n.moviedb.data.model.MoviesResponse
 import retrofit2.http.GET
@@ -24,7 +24,7 @@ interface ApiService {
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Long
-    ) : MovieDetail
+    ) : Movie
 
     @GET("genre/movie/list")
     suspend fun getGenres() : GenresResponse

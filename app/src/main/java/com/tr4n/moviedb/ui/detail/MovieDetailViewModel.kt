@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.tr4n.moviedb.base.BaseViewModel
 import com.tr4n.moviedb.data.model.Movie
-import com.tr4n.moviedb.data.model.MovieDetail
 import com.tr4n.moviedb.data.model.Review
 import com.tr4n.moviedb.data.source.MoviesRepository
 import com.tr4n.moviedb.utils.Constant
@@ -17,7 +16,7 @@ import java.time.format.DateTimeFormatter
 class MovieDetailViewModel : BaseViewModel(), KoinComponent {
     private val moviesRepository : MoviesRepository by inject()
     private var movieId = 0L
-    val movieDetail = MutableLiveData<MovieDetail>()
+    val movieDetail = MutableLiveData<Movie>()
     val txtAboutMovie = MutableLiveData<String>()
     val movieReviews = MutableLiveData<List<Review>>()
     val listMovieSimilar = MutableLiveData<List<Movie>>()

@@ -1,5 +1,6 @@
 package com.tr4n.moviedb.ui.search
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tr4n.moviedb.R
+import com.tr4n.moviedb.data.model.Genre
 import com.tr4n.moviedb.data.model.Movie
 import com.tr4n.moviedb.utils.Constant
 import kotlinx.android.synthetic.main.item_movie_search_recyclerview.view.*
@@ -14,6 +16,7 @@ import kotlinx.android.synthetic.main.item_movie_search_recyclerview.view.*
 class MovieSearchAdapter : ListAdapter<Movie, MovieSearchAdapter.MovieSearchViewHolder>(Movie.diffCallback) {
 
     var onItemSelected: (Long) -> Unit = {}
+    var listGenres = listOf<Genre>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieSearchViewHolder {
         val itemView =
@@ -22,7 +25,22 @@ class MovieSearchAdapter : ListAdapter<Movie, MovieSearchAdapter.MovieSearchView
     }
 
     override fun onBindViewHolder(holder: MovieSearchViewHolder, position: Int) {
-        holder.binData(getItem(position))
+        val itemData = getItem(position)
+        setGenre(itemData)
+        holder.binData(itemData)
+    }
+
+    private fun setGenre(movie: Movie) {
+        val genreIdsMovie = movie.genreIds ?: emptyList()
+        val newGenres = mutableListOf<Genre>()
+        for (genre in listGenres) {
+            for (genreId in genreIdsMovie) {
+                if (genre.id == genreId) {
+                    newGenres.add(genre)
+                }
+            }
+        }
+        movie.genres = newGenres
     }
 
     class MovieSearchViewHolder(
@@ -38,12 +56,13 @@ class MovieSearchAdapter : ListAdapter<Movie, MovieSearchAdapter.MovieSearchView
         }
 
         private var itemData: Movie? = null
+        @SuppressLint("SetTextI18n")
         fun binData(movie: Movie) {
             itemData = movie
             itemView.run {
-                if (itemData?.url != null) {
+                if (itemData?.posterPath != null) {
                     Glide.with(this)
-                        .load(Constant.BASE_URL_IMAGE + itemData?.url)
+                        .load(Constant.BASE_URL_IMAGE + itemData?.posterPath)
                         .into(imageViewMovieSearch)
                 } else {
                     Glide.with(this)
@@ -52,8 +71,10 @@ class MovieSearchAdapter : ListAdapter<Movie, MovieSearchAdapter.MovieSearchView
                 }
 
                 textTitleNameMovieSearch.text = itemData?.title
-                textVoteAverage.text = itemData?.votAverage.toString()
-                textGenre.text = itemData?.genreIds.toString()
+                textVoteAverage.text = itemData?.voteAverage.toString()
+                for (genre in itemData?.genres ?: emptyList()) {
+                    textGenre.text = textGenre.text.toString() + genre.name + " "
+                }
                 textReleaseYear.text = itemData?.releaseDate
             }
         }

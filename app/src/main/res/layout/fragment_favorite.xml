@@ -7,18 +7,51 @@
     android:background="@color/color_dark_shade_of_gray"
     tools:context=".ui.favorite.FavoriteFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:text="Favorite search"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/dp_24"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_24"
+        android:padding="@dimen/dp_8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/title_watchlist"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_20" />
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewWatchList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_movie_search_recyclerview"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgNoMovieInDb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_62"
+        android:layout_marginTop="@dimen/dp_145"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/bg_watchlist"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewWatchList" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

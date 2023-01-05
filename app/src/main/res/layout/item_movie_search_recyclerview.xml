@@ -48,7 +48,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_12"
-        android:text="@string/genre"
         android:textColor="@color/white"
         android:drawablePadding="@dimen/dp_4"
         app:layout_constraintStart_toEndOf="@+id/imageViewMovieSearch"

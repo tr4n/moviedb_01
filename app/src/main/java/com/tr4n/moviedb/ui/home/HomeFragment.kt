@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tr4n.moviedb.R
 import com.tr4n.moviedb.base.BaseFragment
-import com.tr4n.moviedb.data.model.Movie
 import com.tr4n.moviedb.ui.detail.MovieDetailFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -14,15 +13,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModel()
-    private var listMovieNowPlaying = listOf<Movie>()
     private var currentPage = 1
     private var isLoading = false
-
     private val movieAdapter = MovieAdapter()
 
     override fun initData() {
+        currentPage = 1
         viewModel.getTabMovie(HomeTab.NOW_PLAYING.tabNameRes, currentPage)
-        movieAdapter.submitList(viewModel.listMoviesNowPlaying.value)
         movieAdapter.horizontal = true
         val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
 
@@ -55,9 +52,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                 val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
                 if (dx > 0 && !isLoading && (visibleItemCount + pastVisibleItem) >= total) {
                     isLoading = true
-                    viewModel.getTabMovie(HomeTab.NOW_PLAYING.tabNameRes,
-                        currentPage)
                     currentPage++
+                    viewModel.getNextPageTabMovie(HomeTab.NOW_PLAYING.tabNameRes,
+                        currentPage)
                 }
             }
         })
@@ -76,12 +73,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             if (it != null) {
                 progressNewLyMovie.isVisible = it.isEmpty()
             }
-            listMovieNowPlaying = listMovieNowPlaying.plus(it)
-            movieAdapter.submitList(listMovieNowPlaying)
+            movieAdapter.submitList(it)
         }
     }
 
     override fun setupViews() {
         recyclerViewNewlyMovie.adapter = movieAdapter
     }
+
 }

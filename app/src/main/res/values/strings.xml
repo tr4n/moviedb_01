@@ -3,7 +3,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
-    <string name="title_favorite">Favorite</string>
+    <string name="title_watchlist">Watch list</string>
     <string name="what_do_you">What do you want to watch?</string>
     <string name="text_search">Search</string>
     <string name="name_tab_now_playing">Now playing</string>
