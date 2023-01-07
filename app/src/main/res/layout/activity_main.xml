@@ -12,8 +12,9 @@
         android:id="@+id/nav_host_fragment_container"
         android:name="com.tr4n.moviedb.ui.home.HomeFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/dp_0"
         app:layout_constraintBottom_toTopOf="@+id/navView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout="@layout/fragment_home" />
