@@ -38,10 +38,11 @@
             android:textSize="@dimen/sp_16" />
 
         <CheckBox
+            android:id="@+id/checkboxSaveMovie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
-            android:button="@drawable/ic_favorite_checked" />
+            android:button="@drawable/bg_button_save_image" />
 
     </FrameLayout>
 

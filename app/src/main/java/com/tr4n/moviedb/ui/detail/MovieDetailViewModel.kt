@@ -8,6 +8,7 @@ import com.tr4n.moviedb.data.model.Review
 import com.tr4n.moviedb.data.source.MoviesRepository
 import com.tr4n.moviedb.utils.Constant
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.time.LocalDate
@@ -20,6 +21,18 @@ class MovieDetailViewModel : BaseViewModel(), KoinComponent {
     val txtAboutMovie = MutableLiveData<String>()
     val movieReviews = MutableLiveData<List<Review>>()
     val listMovieSimilar = MutableLiveData<List<Movie>>()
+    val listMovieWatchList = MutableLiveData<List<Movie>>()
+    var movieWatchList = MutableLiveData<Movie>()
+
+    fun getListMovieWatchList() {
+        viewModelScope.launch {
+            try {
+                listMovieWatchList.value = moviesRepository.getAllWatchList()
+            } catch (ex: Exception) {
+                exception.value = ex
+            }
+        }
+    }
 
     fun getMovieDetails(movieId : Long) {
         viewModelScope.launch {
@@ -66,5 +79,34 @@ class MovieDetailViewModel : BaseViewModel(), KoinComponent {
         val firstApiFormatter = DateTimeFormatter.ofPattern(Constant.PATTERN_Y_M_D)
         val releaseDate = LocalDate.parse(movieDetail.value?.releaseDate, firstApiFormatter)
         return releaseDate.year.toString()
+    }
+
+    fun insertWatchList(movie: Movie) {
+        viewModelScope.launch {
+            try {
+                moviesRepository.insertWatchList(movie)
+            } catch (ex: Exception) {
+                exception.value = ex
+            }
+        }
+    }
+
+    fun deleteWatchListById(id: Long) {
+        viewModelScope.launch {
+            try {
+                moviesRepository.deleteWatchListById(id)
+                listMovieWatchList.value = moviesRepository.getAllWatchList()
+            } catch (ex: Exception) {
+                exception.value = ex
+            }
+        }
+    }
+
+    fun getWatchListById(id: Long) {
+        viewModelScope.launch {
+            runBlocking {
+                movieWatchList.value = moviesRepository.getWatchListById(id)
+            }
+        }
     }
 }
