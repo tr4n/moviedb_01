@@ -63,32 +63,41 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
 
     override fun observeData() {
         viewModel.movieDetail.observe(viewLifecycleOwner) { movieDetail ->
-            if(movieDetail.backdropPath.isNullOrEmpty() || movieDetail.posterPath.isNullOrEmpty()) {
+            if(!movieDetail?.backdropPath.isNullOrEmpty()) {
+                Glide.with(this)
+                    .load(Constant.BASE_URL_IMAGE + movieDetail.backdropPath)
+                    .into(imageViewBackdropPathMovieDetail)
+            } else {
                 movieDetail.backdropPath = ""
-                movieDetail.posterPath = ""
+                imageViewBackdropPathMovieDetail.setImageResource(R.drawable.bg_image_not_found)
             }
-            Glide.with(this)
-                .load(Constant.BASE_URL_IMAGE + movieDetail?.backdropPath)
-                .into(imageViewBackdropPathMovieDetail)
-            Glide.with(this)
-                .load(Constant.BASE_URL_IMAGE + movieDetail?.posterPath)
-                .into(imageViewPosterPathMovieDetail)
+
+            if (!movieDetail?.posterPath.isNullOrEmpty()) {
+                Glide.with(this)
+                    .load(Constant.BASE_URL_IMAGE + movieDetail.posterPath)
+                    .into(imageViewPosterPathMovieDetail)
+            } else {
+                movieDetail.posterPath = ""
+                imageViewPosterPathMovieDetail.setImageResource(R.drawable.bg_image_not_found)
+            }
 
             textReleaseYearMovieDetail.text = viewModel.getMovieDetailReleaseYear()
             val runtime = movieDetail?.runtime.toString() + context?.resources?.getString(R.string.minutes)
             textRuntimeMovieDetail.text = runtime
             textOriginalTitle.text = movieDetail?.originalTitle
             var movieGenres = ""
-            if (movieDetail?.genres != null) {
-                for (genre in movieDetail.genres) {
-                    movieGenres += genre.name + " "
-                }
+            val genres = movieDetail?.genres ?: emptyList()
+            for (genre in genres) {
+                movieGenres += genre.name + " "
             }
             textVoteAverage.text = movieDetail.voteAverage.toString()
             textGenreMovieDetail.text = movieGenres
-            activity?.viewPageMovieDetail?.layoutParams?.height = (activity?.container?.height ?: 0) -
-                    (activity?.linearLayoutBottom?.height ?: 0) - (activity?.linearLayout?.height ?: 0) -
-                    (activity?.linearLayout?.paddingBottom ?: 0)
+            val movieDetailFragmentActivity = activity
+            if (movieDetailFragmentActivity != null) {
+                movieDetailFragmentActivity.viewPageMovieDetail.layoutParams.height = movieDetailFragmentActivity.container.height -
+                        movieDetailFragmentActivity.linearLayoutBottom.height - movieDetailFragmentActivity.linearLayout.height -
+                        movieDetailFragmentActivity.linearLayout.paddingBottom
+            }
         }
         viewModel.exception.observe(viewLifecycleOwner) {
             Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
@@ -97,7 +106,6 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
     }
 
     override fun setupViews() {
-        //println(viewModel.movieWatchList?.id)
     }
 
     override fun onAttach(context: Context) {

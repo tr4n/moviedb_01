@@ -30,10 +30,11 @@
 
     <TextView
         android:id="@+id/what_do_you"
-        android:layout_width="@dimen/dp_317"
-        android:layout_height="@dimen/dp_27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/dp_24"
+        android:paddingBottom="@dimen/dp_8"
         android:layout_marginTop="@dimen/dp_24"
         android:gravity="top"
         android:text="@string/what_do_you"

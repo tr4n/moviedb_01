@@ -58,7 +58,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
         editSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                //TODO("Not yet implemented")
+                imgSearchNotFound.isVisible = false
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
