@@ -12,4 +12,8 @@ interface MoviesRepository {
     suspend fun getGenres() : GenresResponse
     suspend fun getMovieReviews(movieId: Long, page: Int) : MovieReviewsResponse
     suspend fun getMovieSimilar(movieId: Long, page: Int) : MoviesResponse
+    suspend fun getAllWatchList() : List<Movie>
+    suspend fun insertWatchList(movie: Movie)
+    suspend fun deleteWatchListById(id: Long)
+    suspend fun getWatchListById(id: Long) : Movie
 }

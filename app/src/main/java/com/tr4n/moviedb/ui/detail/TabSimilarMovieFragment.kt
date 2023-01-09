@@ -22,7 +22,7 @@ class TabSimilarMovieFragment : BaseFragment(R.layout.fragment_tab_similar_movie
     private var isLoading = false
 
     override fun initData() {
-        //movieSimilarAdapter.submitList(viewModel.listMovieSimilar.value)
+        currentPage = 1
     }
 
     override fun listenEvents() {

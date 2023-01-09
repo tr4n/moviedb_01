@@ -60,19 +60,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editSearch"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="20"
+        tools:itemCount="5"
         tools:listitem="@layout/item_movie_search_recyclerview"/>
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgSearchNotFound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_62"
-        android:layout_marginTop="@dimen/dp_145"
         android:visibility="invisible"
-        android:src="@drawable/bg_search_cant_be_found"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewWatchList" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        app:srcCompat="@drawable/bg_search_cant_be_found" />
 
     <ProgressBar
         android:id="@+id/progressBarSearchMovie"

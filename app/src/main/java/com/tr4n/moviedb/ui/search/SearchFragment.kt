@@ -23,6 +23,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
     private var textQuery = ""
 
     override fun initData() {
+        currentPage = 1
         movieSearchAdapter.submitList(viewModel.listMovieSearchResults.value)
     }
 
@@ -49,6 +50,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         }
 
         editSearch.setOnClickListener {
+            listMovieSearchResults = emptyList()
             currentPage = 1
             textQuery = it.editSearch.text.toString()
             viewModel.getMovieSearchResults(textQuery, currentPage)
@@ -56,19 +58,17 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
         editSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                //TODO("Not yet implemented")
+                imgSearchNotFound.isVisible = false
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                //TODO("Not yet implemented")
                 progressBarSearchMovie.visibility = View.VISIBLE
             }
 
             override fun afterTextChanged(s: Editable?) {
                 if (s?.isEmpty() == true) {
-                    movieSearchAdapter.submitList(null)
-                    imgSearchNotFound.visibility = View.INVISIBLE
-                    progressBarSearchMovie.visibility = View.INVISIBLE
+                    currentPage = 1
+                    viewModel.getMovieSearchResults(s.toString(), currentPage)
                 }
             }
 
@@ -92,6 +92,14 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
         viewModel.listGenres.observe(viewLifecycleOwner) {
             movieSearchAdapter.listGenres = it
+        }
+
+        viewModel.exception.observe(viewLifecycleOwner) {
+            if (it != null) {
+                imgSearchNotFound.visibility = View.INVISIBLE
+                progressBarSearchMovie.visibility = View.INVISIBLE
+                movieSearchAdapter.submitList(emptyList())
+            }
         }
     }
 

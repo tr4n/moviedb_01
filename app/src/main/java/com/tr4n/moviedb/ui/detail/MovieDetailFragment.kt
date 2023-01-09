@@ -1,6 +1,7 @@
 package com.tr4n.moviedb.ui.detail
 
 import android.content.Context
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
@@ -14,14 +15,19 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
     private var movieId = 0L
-    private val currentPage = 1
+    private var currentPage = 1
     private val viewModel : MovieDetailViewModel by activityViewModel()
 
     override fun initData() {
+        currentPage = 1
         viewModel.getMovieDetails(movieId)
         viewModel.getAboutMovie()
         viewModel.getMovieReviews(currentPage)
         viewModel.getMoviesSimilar(currentPage)
+        viewModel.getWatchListById(movieId)
+        if(viewModel.movieWatchList.value != null) {
+            checkboxSaveMovie.isChecked = true
+        }
         val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         viewPagerAdapter.movieId = movieId
         viewPageMovieDetail.adapter = viewPagerAdapter
@@ -44,37 +50,62 @@ class MovieDetailFragment : BaseFragment(R.layout.fragment_movie_detail) {
         buttonBackFromDetail.setOnClickListener {
             activity?.supportFragmentManager?.popBackStack()
         }
+        checkboxSaveMovie.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.movieDetail.value?.let { movie->
+                    viewModel.insertWatchList(movie)
+                }
+            } else {
+                viewModel.deleteWatchListById(movieId)
+            }
+        }
     }
 
     override fun observeData() {
         viewModel.movieDetail.observe(viewLifecycleOwner) { movieDetail ->
-            Glide.with(this)
-                .load(Constant.BASE_URL_IMAGE + movieDetail?.backdropPath)
-                .into(imageViewBackdropPathMovieDetail)
-            Glide.with(this)
-                .load(Constant.BASE_URL_IMAGE + movieDetail?.posterPath)
-                .into(imageViewPosterPathMovieDetail)
+            if(!movieDetail?.backdropPath.isNullOrEmpty()) {
+                Glide.with(this)
+                    .load(Constant.BASE_URL_IMAGE + movieDetail.backdropPath)
+                    .into(imageViewBackdropPathMovieDetail)
+            } else {
+                movieDetail.backdropPath = ""
+                imageViewBackdropPathMovieDetail.setImageResource(R.drawable.bg_image_not_found)
+            }
+
+            if (!movieDetail?.posterPath.isNullOrEmpty()) {
+                Glide.with(this)
+                    .load(Constant.BASE_URL_IMAGE + movieDetail.posterPath)
+                    .into(imageViewPosterPathMovieDetail)
+            } else {
+                movieDetail.posterPath = ""
+                imageViewPosterPathMovieDetail.setImageResource(R.drawable.bg_image_not_found)
+            }
 
             textReleaseYearMovieDetail.text = viewModel.getMovieDetailReleaseYear()
             val runtime = movieDetail?.runtime.toString() + context?.resources?.getString(R.string.minutes)
             textRuntimeMovieDetail.text = runtime
             textOriginalTitle.text = movieDetail?.originalTitle
             var movieGenres = ""
-            if (movieDetail?.genres != null) {
-                for (genre in movieDetail.genres ?: emptyList()) {
-                    movieGenres += genre.name + " "
-                }
+            val genres = movieDetail?.genres ?: emptyList()
+            for (genre in genres) {
+                movieGenres += genre.name + " "
             }
             textVoteAverage.text = movieDetail.voteAverage.toString()
             textGenreMovieDetail.text = movieGenres
-            activity?.viewPageMovieDetail?.layoutParams?.height = (activity?.container?.height ?: 0) -
-                    (activity?.linearLayoutBottom?.height ?: 0) - (activity?.linearLayout?.height ?: 0) -
-                    (activity?.linearLayout?.paddingBottom ?: 0)
+            val movieDetailFragmentActivity = activity
+            if (movieDetailFragmentActivity != null) {
+                movieDetailFragmentActivity.viewPageMovieDetail.layoutParams.height = movieDetailFragmentActivity.container.height -
+                        movieDetailFragmentActivity.linearLayoutBottom.height - movieDetailFragmentActivity.linearLayout.height -
+                        movieDetailFragmentActivity.linearLayout.paddingBottom
+            }
         }
+        viewModel.exception.observe(viewLifecycleOwner) {
+            Toast.makeText(activity, it.message, Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     override fun setupViews() {
-        //
     }
 
     override fun onAttach(context: Context) {

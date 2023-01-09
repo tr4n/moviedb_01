@@ -32,26 +32,26 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewWatchList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="@dimen/dp_30"
-        android:layout_marginTop="@dimen/dp_24"
         android:layout_marginEnd="@dimen/dp_40"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="2"
+        tools:itemCount="0"
         tools:listitem="@layout/item_movie_search_recyclerview"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgNoMovieInDb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_62"
-        android:layout_marginTop="@dimen/dp_145"
         android:visibility="invisible"
-        app:srcCompat="@drawable/bg_watchlist"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewWatchList" />
+        app:layout_constraintTop_toBottomOf="@id/frameLayout"
+        app:layout_constraintVertical_bias="0.3"
+        app:srcCompat="@drawable/bg_watchlist" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

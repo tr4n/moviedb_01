@@ -2,36 +2,38 @@ package com.tr4n.moviedb.data.model
 
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity
-data class Movie(
+data class Movie (
     @PrimaryKey
     @SerializedName("id")
-    val id : Long,
+    var id : Long = 0L,
     @SerializedName("poster_path")
-    val posterPath : String = "",
+    var posterPath : String = "",
     @SerializedName("backdrop_path")
-    val backdropPath : String = "",
+    var backdropPath : String = "",
     @SerializedName("vote_average")
-    val voteAverage : Float?,
+    var voteAverage : Float = 0F,
     @SerializedName("original_title")
-    val originalTitle : String = "",
+    var originalTitle : String = "",
     @SerializedName("title")
-    val title : String = "",
+    var title : String = "",
     @SerializedName("genre_ids")
-    val genreIds : List<Int> ?,
+    @Ignore
+    var genreIds : List<Int> = emptyList(),
     @SerializedName("genres")
-    var genres : List<Genre> ?,
+    var genres : List<Genre> = emptyList(),
     @SerializedName("original_language")
-    val originalLanguage : String = "",
+    var originalLanguage : String = "",
     @SerializedName("release_date")
-    val releaseDate : String = "",
+    var releaseDate : String = "",
     @SerializedName("runtime")
-    val runtime : Int,
+    var runtime : Int = 0,
     @SerializedName("overview")
-    val overview : String = ""
+    var overview : String = ""
 ) {
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<Movie>() {

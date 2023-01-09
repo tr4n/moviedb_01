@@ -31,7 +31,7 @@ class MovieSearchAdapter : ListAdapter<Movie, MovieSearchAdapter.MovieSearchView
     }
 
     private fun setGenre(movie: Movie) {
-        val genreIdsMovie = movie.genreIds ?: emptyList()
+        val genreIdsMovie = movie.genreIds
         val newGenres = mutableListOf<Genre>()
         for (genre in listGenres) {
             for (genreId in genreIdsMovie) {
@@ -60,14 +60,12 @@ class MovieSearchAdapter : ListAdapter<Movie, MovieSearchAdapter.MovieSearchView
         fun binData(movie: Movie) {
             itemData = movie
             itemView.run {
-                if (itemData?.posterPath != null) {
+                if (!itemData?.posterPath.isNullOrEmpty()) {
                     Glide.with(this)
                         .load(Constant.BASE_URL_IMAGE + itemData?.posterPath)
                         .into(imageViewMovieSearch)
                 } else {
-                    Glide.with(this)
-                        .load(Constant.URL_IMG_NULL)
-                        .into(imageViewMovieSearch)
+                    imageViewMovieSearch.setImageResource(R.drawable.bg_image_not_found)
                 }
 
                 textTitleNameMovieSearch.text = itemData?.title

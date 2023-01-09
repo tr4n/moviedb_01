@@ -18,7 +18,9 @@ class TabReviewsFragment : BaseFragment(R.layout.fragment_tab_reviews) {
     private var isLoading = false
     private val viewModel by activityViewModel<MovieDetailViewModel>()
 
-    override fun initData() {}
+    override fun initData() {
+        currentPage = 1
+    }
     override fun listenEvents() {
         activity?.nestedScrollViewMovieDetail?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, _, _, _ ->
             v.recyclerViewReviews.addOnScrollListener(object : RecyclerView.OnScrollListener() {

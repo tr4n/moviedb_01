@@ -9,13 +9,14 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageViewMovieSearch"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/dp_98"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/roundedRectangle"
         app:strokeColor="@null"
-        tools:srcCompat="@tools:sample/avatars"
+        android:scaleType="center"
+        tools:srcCompat="@drawable/bg_image_not_found"
         tools:ignore="ContentDescription" />
 
     <TextView
