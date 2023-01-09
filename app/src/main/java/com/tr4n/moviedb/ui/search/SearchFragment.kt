@@ -77,7 +77,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
     override fun observeData() {
         viewModel.listMovieSearchResults.observe(viewLifecycleOwner) {
-            if (it?.isEmpty() == true) {
+            if (it?.isEmpty() == true && currentPage == 1) {
                 imgSearchNotFound.visibility = View.VISIBLE
             } else {
                 progressBarSearchMovie.visibility = View.INVISIBLE
